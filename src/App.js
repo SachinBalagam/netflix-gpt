@@ -1,7 +1,11 @@
-import "./App.css";
+import Body from "./components/Body";
 
 function App() {
-  return <h1 className="font-bold text-red-300">Namaste World!</h1>;
+  return (
+    <div>
+      <Body />
+    </div>
+  );
 }
 
 export default App;
