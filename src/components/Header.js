@@ -48,7 +48,7 @@ const Header = () => {
           className="bg-red-700 text-white rounded cursor-pointer px-3 py-2"
           onClick={handleSignout}
         >
-          Sign out
+          Logout
         </button>
       )}
     </div>
