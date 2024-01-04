@@ -7,9 +7,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { WEBSITE_BACKGROUND } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignForm] = useState(true);
@@ -19,12 +19,9 @@ const Login = () => {
   const name = useRef(null);
   const password = useRef(null);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleButtonClick = () => {
-    // console.log(email.current.value);
-    // console.log(password.current.value);
     if (isSignInForm) {
       const message = ValidateForm(email.current.value, password.current.value);
       setErrorMessage(message);
@@ -38,13 +35,9 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
-          //   const errorMessage = error.message;
-          //   console.log(errorMessage);
-          //   console.log(errorCode.slice(5));
           setErrorMessage(errorCode.slice(5));
         });
     } else {
@@ -56,7 +49,6 @@ const Login = () => {
       setErrorMessage(message);
       if (message) return;
       // Sign Up Logic
-
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -78,7 +70,6 @@ const Login = () => {
                   uid: uid,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -86,8 +77,6 @@ const Login = () => {
         })
         .catch((error) => {
           const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode + " " + errorMessage);
           setErrorMessage(errorCode.slice(5));
         });
     }
@@ -101,10 +90,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/c31c3123-3df7-4359-8b8c-475bd2d9925d/15feb590-3d73-45e9-9e4a-2eb334c83921/IN-en-20231225-popsignuptwoweeks-perspective_alpha_website_large.jpg"
-          alt="background"
-        />
+        <img src={WEBSITE_BACKGROUND} alt="background" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
